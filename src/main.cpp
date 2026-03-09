@@ -14,7 +14,7 @@ String pswd = WIFI_PASSWORD;
 
 // Instantiate modules
 WebInterface webInterface(db, &ssid, &pswd);
-ModbusRS485 modbusRS485;
+ModbusRS485 modbusRS485(&db);
 RawRS485 rawRS485(&db);
 IOControl ioControl;
 
