@@ -322,16 +322,16 @@ void WebBuilder::build(sets::Builder &b)
 
         // Algorithm
         b.beginGroup();
-        b.Label("Алгоритм");
-        b.Switch(keys::algoCompEn, "Компенсация");
+        b.Label("Алгоритмы");
+        b.Switch(keys::algoCompEn, "Алгоритм компенсации");
         b.Switch(keys::algoSkipOpenConfirm, "Без подтв. откр");
         b.Switch(keys::algoWaitSecondDoorEmpty, "Ждать пусто до закр2");
-        b.Switch(keys::algoSecondDoorMaxHoldEn, "Закр2 по макс.врем");
+        b.Switch(keys::algoSecondDoorMaxHoldEn, "Закр2 по макс.времени");
         b.Input(keys::algoSecondDoorMaxHoldMs, "Макс держ 2й,мс");
         b.Input(keys::algoOpenSensorToutMs, "Таймаут откр,мс");
         b.Input(keys::algoPersonWaitToutMs, "Таймаут ожид,мс");
-        b.Input(keys::algoSwitchDelayMs, "Задержка перед 2й,мс");
-        b.Input(keys::algoSecondDoorHoldMs, "Задержка закр2,мс");
+        b.Input(keys::algoSwitchDelayMs, "Задержка перед откр2,мс");
+        b.Input(keys::algoSecondDoorHoldMs, "Задержка перед закр2,мс");
         b.endGroup();
 
     }
