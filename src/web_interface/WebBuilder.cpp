@@ -274,64 +274,64 @@ void WebBuilder::build(sets::Builder &b)
     case Tabs::Settings:
         // DO Mapping
         b.beginGroup();
-        b.Label("Digital Outputs Mapping");
-        b.Input(keys::doGreenLampEntryA, "Green Lamp Entry A");
-        b.Input(keys::doRedLampEntryA, "Red Lamp Entry A");
-        b.Input(keys::doGreenLampEntryB, "Green Lamp Entry B");
-        b.Input(keys::doRedLampEntryB, "Red Lamp Entry B");
-        b.Input(keys::doStatusEntryA, "Status Entry A");
-        b.Input(keys::doStatusEntryB, "Status Entry B");
-        b.Input(keys::doSoundEnter, "Sound Enter");
-        b.Input(keys::doSoundLeave, "Sound Leave");
-        b.Input(keys::doSignalPass, "Signal Pass");
+        b.Label("Выходы (DO)");
+        b.Input(keys::doGreenLampEntryA, "Зел. лампа A");
+        b.Input(keys::doRedLampEntryA, "Красн. лампа A");
+        b.Input(keys::doGreenLampEntryB, "Зел. лампа B");
+        b.Input(keys::doRedLampEntryB, "Красн. лампа B");
+        b.Input(keys::doStatusEntryA, "Статус A");
+        b.Input(keys::doStatusEntryB, "Статус B");
+        b.Input(keys::doSoundEnter, "Звук вход");
+        b.Input(keys::doSoundLeave, "Звук выход");
+        b.Input(keys::doSignalPass, "Сигнал проход");
         b.endGroup();
 
         // DI Mapping
         b.beginGroup();
-        b.Label("Digital Inputs Mapping");
-        b.Input(keys::diOpenEntryDoorA, "Open Entry Door A (DI 0..15)");
-        b.Input(keys::diOpenEntryDoorB, "Open Entry Door B (DI 0..15)");
-        b.Input(keys::diFireSignal, "Fire Signal (DI 0..15)");
-        b.Switch(keys::diFireInvert, "Инверсия пожарного сигнала");
-        b.Input(keys::diResetFactory, "Factory Reset (DI 0..15)");
-        b.Input(keys::diLowerSensor, "Lower Sensor (DI 0..15)");
+        b.Label("Входы (DI)");
+        b.Input(keys::diOpenEntryDoorA, "Откр. дверь A (DI)");
+        b.Input(keys::diOpenEntryDoorB, "Откр. дверь B (DI)");
+        b.Input(keys::diFireSignal, "Пожар (DI)");
+        b.Switch(keys::diFireInvert, "Инверсия пожара");
+        b.Input(keys::diResetFactory, "Сброс настроек (DI)");
+        b.Input(keys::diLowerSensor, "Нижний датчик (DI)");
         b.endGroup();
 
         // Modbus Drivers
         b.beginGroup();
-        b.Label("Modbus Slaves");
-        b.Input(keys::mbSlaveDriver1, "Driver 1 ID");
-        b.Input(keys::mbSlaveDriver2, "Driver 2 ID");
+        b.Label("Modbus ID");
+        b.Input(keys::mbSlaveDriver1, "ID драйвера A");
+        b.Input(keys::mbSlaveDriver2, "ID драйвера B");
         b.endGroup();
 
         // People Counter
         b.beginGroup();
-        b.Label("RS485 People Counter");
-        b.Input(keys::byteRecognize0Person, "Code for 0 Person");
-        b.Input(keys::byteRecognize1Person, "Code for 1 Person");
-        b.Input(keys::byteRecognize2Person, "Code for 2 People");
+        b.Label("RS-485 счётчик");
+        b.Input(keys::byteRecognize0Person, "Код 0 чел");
+        b.Input(keys::byteRecognize1Person, "Код 1 чел");
+        b.Input(keys::byteRecognize2Person, "Код 2 чел");
         b.endGroup();
         
         // WiFi
         b.beginGroup();
-        b.Label("WiFi Settings");
-        b.Input(keys::wifiApSsid, "AP SSID");
-        b.Input(keys::wifiApPass, "AP Password");
-        b.Input(keys::wifiApIp, "AP IP");
+        b.Label("WiFi AP");
+        b.Input(keys::wifiApSsid, "SSID AP");
+        b.Input(keys::wifiApPass, "Пароль AP");
+        b.Input(keys::wifiApIp, "IP AP");
         b.endGroup();
 
         // Algorithm
         b.beginGroup();
-        b.Label("Algorithm");
-        b.Switch(keys::algoCompEn, "Compensation Enabled");
-        b.Switch(keys::algoSkipOpenConfirm, "Skip open confirm");
-        b.Switch(keys::algoWaitSecondDoorEmpty, "Wait empty before close second");
-        b.Switch(keys::algoSecondDoorMaxHoldEn, "Close second by max time");
-        b.Input(keys::algoSecondDoorMaxHoldMs, "Second Door Max Hold, ms");
-        b.Input(keys::algoOpenSensorToutMs, "Open Sensor Timeout, ms");
-        b.Input(keys::algoPersonWaitToutMs, "Wait Person Timeout, ms");
-        b.Input(keys::algoSwitchDelayMs, "Delay before open second, ms");
-        b.Input(keys::algoSecondDoorHoldMs, "Second Door Close Delay, ms");
+        b.Label("Алгоритм");
+        b.Switch(keys::algoCompEn, "Компенсация");
+        b.Switch(keys::algoSkipOpenConfirm, "Без подтв. откр");
+        b.Switch(keys::algoWaitSecondDoorEmpty, "Ждать пусто до закр2");
+        b.Switch(keys::algoSecondDoorMaxHoldEn, "Закр2 по макс.врем");
+        b.Input(keys::algoSecondDoorMaxHoldMs, "Макс держ 2й,мс");
+        b.Input(keys::algoOpenSensorToutMs, "Таймаут откр,мс");
+        b.Input(keys::algoPersonWaitToutMs, "Таймаут ожид,мс");
+        b.Input(keys::algoSwitchDelayMs, "Задержка перед 2й,мс");
+        b.Input(keys::algoSecondDoorHoldMs, "Задержка закр2,мс");
         b.endGroup();
 
     }
