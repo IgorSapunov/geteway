@@ -22,6 +22,10 @@
     #define DEBUG_PRINT(x)
     #define DEBUG_PRINTLN(x)
 #endif
+
+#define MODBUS_RS485_LOG 0
+#define RAW_RS485_LOG 0
+#define DOOR_STATE_LOG 1
 #define L_RELAYS_ADDR 0x24
 #define R_RELAYS_ADDR 0x25
 #define IO1_PIN 32
@@ -35,7 +39,8 @@
 // Network / WiFi Settings
 // ==========================================
 // 0: Station Mode (Connect to Router), 1: Access Point Mode
-#define WIFI_MODE_AP 0 
+// NOTE: Do not use WIFI_MODE_AP name here (conflicts with esp-idf WiFi enum).
+#define GATEWAY_WIFI_MODE_AP 1
 
 #define WIFI_SSID "Your_SSID"
 #define WIFI_PASSWORD "Your_Password"

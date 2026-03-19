@@ -11,7 +11,7 @@
 #include <SettingsGyver.h>
 
 
-constexpr const char* title = "Logic box";
+constexpr const char* title = "Michail Getway";
 
 #define WEB_PORT_WIFI \
     8080 // WiFi port, in future if you want you can make it changeable

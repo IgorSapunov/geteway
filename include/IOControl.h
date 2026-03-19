@@ -9,6 +9,7 @@
 class IOControl {
 public:
     IOControl();
+    static IOControl* instance();
     void begin();
     void loop();
 
@@ -33,13 +34,15 @@ public:
     bool readInput(uint8_t id);
 
 private:
+    static IOControl* _instance;
     PCF8574 _relaysL;
     PCF8574 _relaysR;
     PCF8574 _inputsL;
     PCF8574 _inputsR;
 
-    // Helper to map index to specific PCF and pin
     void _writeRelay(uint8_t id, bool state);
+    PCF8574& _relayDev(uint8_t id, uint8_t& pin);
+    PCF8574& _inputDev(uint8_t id, uint8_t& pin);
 };
 
 #endif // IO_CONTROL_H

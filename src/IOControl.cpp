@@ -1,9 +1,16 @@
 #include "IOControl.h"
 
+IOControl* IOControl::_instance = nullptr;
+
 IOControl::IOControl() 
     : _relaysL(PCF_ADDR_RELAYS_L), _relaysR(PCF_ADDR_RELAYS_R),
       _inputsL(PCF_ADDR_INPUTS_L), _inputsR(PCF_ADDR_INPUTS_R) 
 {
+    _instance = this;
+}
+
+IOControl* IOControl::instance() {
+    return _instance;
 }
 
 void IOControl::begin() {
@@ -25,12 +32,8 @@ void IOControl::begin() {
     _inputsL.write8(0xFF);
     _inputsR.write8(0xFF);
     
-    // Turn off all relays initially (Assuming 0 = OFF)
-    // If relays are active LOW, we might need to write 0xFF. 
-    // Based on user snippet 'setRelay(..., true) -> bit=1', we assume 1 is the active state or at least the state for 'ON'.
-    // We'll initialize to 0.
-    _relaysL.write8(0x00);
-    _relaysR.write8(0x00);
+    _relaysL.write8(0xFF);
+    _relaysR.write8(0xFF);
     
     // Configure Status LED
     pinMode(LED_STATUS_PIN, OUTPUT);
@@ -47,28 +50,17 @@ void IOControl::loop() {
 // ==========================================
 
 void IOControl::setOutput(uint8_t id, bool state) {
-    // Mapping based on user snippet:
-    // 0-7  -> RIGHT Relays (PCF_ADDR_RELAYS_R)
-    // 8-15 -> LEFT Relays  (PCF_ADDR_RELAYS_L)
-    
-    if (id < 8) {
-        _relaysR.write(id, state);
-    } else if (id < 16) {
-        _relaysL.write(id - 8, state);
-    }
+    if (id >= 16) return;
+    uint8_t pin = 0;
+    PCF8574& dev = _relayDev(id, pin);
+    dev.write(pin, !state);
 }
 
 bool IOControl::readInput(uint8_t id) {
-    // Mapping based on user snippet:
-    // 0-7  -> LEFT Inputs (PCF_ADDR_INPUTS_L)
-    // 8-15 -> RIGHT Inputs (PCF_ADDR_INPUTS_R)
-    
-    if (id < 8) {
-        return _inputsL.read(id);
-    } else if (id < 16) {
-        return _inputsR.read(id - 8);
-    }
-    return false;
+    if (id >= 16) return true;
+    uint8_t pin = 0;
+    PCF8574& dev = _inputDev(id, pin);
+    return dev.read(pin);
 }
 
 // ==========================================
@@ -130,4 +122,22 @@ bool IOControl::readFireSignal() {
 // Private helper (not strictly needed if using library methods directly, but kept for structure)
 void IOControl::_writeRelay(uint8_t id, bool state) {
     setOutput(id, state);
+}
+
+PCF8574& IOControl::_relayDev(uint8_t id, uint8_t& pin) {
+    if (id < 8) {
+        pin = id;
+        return _relaysL;
+    }
+    pin = id - 8;
+    return _relaysR;
+}
+
+PCF8574& IOControl::_inputDev(uint8_t id, uint8_t& pin) {
+    if (id < 8) {
+        pin = id;
+        return _inputsL;
+    }
+    pin = id - 8;
+    return _inputsR;
 }
