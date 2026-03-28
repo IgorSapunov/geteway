@@ -23,7 +23,7 @@
     #define DEBUG_PRINTLN(x)
 #endif
 
-#define MODBUS_RS485_LOG 0
+#define MODBUS_RS485_LOG 1
 #define RAW_RS485_LOG 0
 #define DOOR_STATE_LOG 1
 #define L_RELAYS_ADDR 0x24
