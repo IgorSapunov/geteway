@@ -633,8 +633,14 @@ void ModbusRS485::loop() {
     uint16_t cnt = maxAddr - _pollAddr;
     if (cnt > blockSize) cnt = blockSize;
 
-    if (_scheduleRead(slaveId, _pollAddr, cnt, cache + _pollAddr)) {
-        _pollAddr += cnt;
+    uint16_t tryCnt = cnt;
+    bool ok = _scheduleRead(slaveId, _pollAddr, tryCnt, cache + _pollAddr);
+    if (!ok && tryCnt > 1) {
+        tryCnt = (uint16_t)(tryCnt / 2);
+        ok = _scheduleRead(slaveId, _pollAddr, tryCnt, cache + _pollAddr);
+    }
+    if (ok) {
+        _pollAddr += tryCnt;
     } else {
         _pollAddr = 0;
         _pollSlaveIdx = (_pollSlaveIdx == 0) ? 1 : 0;
